@@ -1,0 +1,8 @@
+[dumpfile] "/home/parallels/github/learn-nMigen/vivonomicon/test.vcd"
+[dumpfile_size] 2913
+[treeopen] top.
+@22
+top.simple.clk
+top.simple.rst
+top.simple.count[15:0]
+top.simple.ncount[15:0]
