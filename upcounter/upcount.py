@@ -1,6 +1,6 @@
 from amaranth import *
 from amaranth.sim import Simulator
-
+from amaranth.back import verilog
 
 
 class UpCounter(Elaboratable):
@@ -74,5 +74,10 @@ def bench():
 sim = Simulator(dut)
 sim.add_clock(1e-6) #1 Mhz
 sim.add_sync_process(bench)
-with sim.write_vcd("up_counter.vcd"):
+with sim.write_vcd("up_counter.vcd", "up_counter.gtkw"):
     sim.run()
+
+# Convert amaranth to synthesizable Verilog
+top =  UpCounter(25)
+with open("up_counter.v", "w") as f:
+    f.write(verilog.convert(top, ports=[top.en, top.ovf]))

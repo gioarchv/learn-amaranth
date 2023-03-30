@@ -1,10 +1,10 @@
 import os
 import subprocess
 
-from nmigen import *
-from nmigen.build import *
-from nmigen.build.run import LocalBuildProducts
-from nmigen.vendor.lattice_ice40 import LatticeICE40Platform
+from amaranth import *
+from amaranth.build import *
+from amaranth.build.run import LocalBuildProducts
+from amaranth.vendor.lattice_ice40 import LatticeICE40Platform
 
 __all__ = ["AlchitryCuPlatform"]
 
