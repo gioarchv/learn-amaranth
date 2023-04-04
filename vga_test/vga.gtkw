@@ -1,0 +1,11 @@
+[dumpfile] "/home/parallels/github/learn-amaranth/vga_test/vga.vcd"
+[dumpfile_size] 38788168
+[treeopen] top.
+@22
+bench.top.vga.o_hsync
+bench.top.vga.o_vsync
+bench.top.vga.o_de
+bench.top.vga.o_frame
+bench.top.vga.o_line
+bench.top.vga.o_sx[15:0]
+bench.top.vga.o_sy[15:0]
