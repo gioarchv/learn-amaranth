@@ -3,7 +3,7 @@ from amaranth.build import Platform
 from amaranth.sim import *
 
 
-class vga(Elaboratable):
+class VGA(Elaboratable):
     def __init__(self,
                  CORDW  = 16,
                  H_RES  = 800,
@@ -24,8 +24,8 @@ class vga(Elaboratable):
         self.o_de       = Signal()
         self.o_frame    = Signal()
         self.o_line     = Signal()
-        self.o_sx       = Signal(CORDW)
-        self.o_sy       = Signal(CORDW)
+        self.o_sx       = Signal(signed(CORDW))
+        self.o_sy       = Signal(signed(CORDW))
 
         # Configuration
         self.CORDW  = CORDW
@@ -53,8 +53,6 @@ class vga(Elaboratable):
     def elaborate(self, platform: Platform) -> Module:
         m = Module()
 
-        #@m.domains += ClockDomain("pixel", clk_edge="pos")
-
         # Horizontal timings
         H_STA   = Const((0 - self.H_FP - self.H_SYNC - self.H_BP), signed(self.CORDW))
         HS_STA  = Const((0 - self.H_FP - self.H_SYNC - self.H_BP - self.H_FP), signed(self.CORDW))
@@ -71,10 +69,10 @@ class vga(Elaboratable):
 
 
         # Internal signals
-        R_x     = Signal(signed(self.CORDW), reset=0)#=H_STA)
-        R_y     = Signal(signed(self.CORDW), reset=0)#V_STA)
-        R_hsync = Signal(reset=0)#(Mux(self.H_POL, 0, 1)))
-        R_vsync = Signal(reset=0)#(Mux(self.V_POL, 0, 1)))
+        R_x     = Signal(signed(self.CORDW), reset=0)
+        R_y     = Signal(signed(self.CORDW), reset=0)
+        R_hsync = Signal(reset=0)
+        R_vsync = Signal(reset=0)
         R_de    = Signal(reset=0)
         R_frame = Signal(reset=0)
         R_line  = Signal(reset=0)
@@ -147,16 +145,6 @@ class vga(Elaboratable):
 if __name__ == "__main__":
     dut = Module()
     dut.submodules.vga = vga = vga()
-    #dut.domains.pixel = pixel = ClockDomain("pixel")
-    
-    # Workaround for  a bug in Amaranth where inputs to your module are not output to the trace file.
-    #i_rst_pix = Signal()
-    #dut.d.comb += vga.i_rst_pix.eq(i_rst_pix)
-
-    #i_clk_pix = Signal()
-    #dut.d.comb += vga.i_clk_pix.eq(i_clk_pix)
-
-
 
     sim = Simulator(dut)
     sim.add_clock(25e-6)
