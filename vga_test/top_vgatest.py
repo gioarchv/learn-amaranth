@@ -8,6 +8,7 @@ from tpg import TPG
 class TopVgaTest(Elaboratable):
     def __init__(self) -> None:
         pass
+
     
     
     def elaborate(self, platform: Platform):
