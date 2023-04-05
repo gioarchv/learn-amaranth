@@ -6,11 +6,11 @@ class TPG(Elaboratable):
     def __init__(self,
                  CORDW = 16,
                  ):
-        self.i_sx = Signal(signed(CORDW))
-        self.i_sy = Signal(signed(CORDW))
-        self.o_r = Signal(4)
-        self.o_g = Signal(4)
-        self.o_b = Signal(4)
+        self.i_sx   = Signal(signed(CORDW))
+        self.i_sy   = Signal(signed(CORDW))
+        self.o_r    = Signal(4)
+        self.o_g    = Signal(4)
+        self.o_b    = Signal(4)
 
     def ports(self):
         return [self.i_sx,
@@ -48,24 +48,24 @@ class TPG(Elaboratable):
 
         m.d.comb += [ 
             bar_select.eq(Mux((self.i_sx < (BAR_WIDTH * 1)), 0,
-                          (Mux((self.i_sx < (BAR_WIDTH * 2)), 1,
-                          (Mux((self.i_sx < (BAR_WIDTH * 3)), 2,
-                          (Mux((self.i_sx < (BAR_WIDTH * 4)), 3,
-                          (Mux((self.i_sx < (BAR_WIDTH * 5)), 4,
-                          (Mux((self.i_sx < (BAR_WIDTH * 6)), 5,
-                          (Mux((self.i_sx < (BAR_WIDTH * 7)), 6, 7)))))))))))))),
+                         (Mux((self.i_sx < (BAR_WIDTH * 2)), 1,
+                         (Mux((self.i_sx < (BAR_WIDTH * 3)), 2,
+                         (Mux((self.i_sx < (BAR_WIDTH * 4)), 3,
+                         (Mux((self.i_sx < (BAR_WIDTH * 5)), 4,
+                         (Mux((self.i_sx < (BAR_WIDTH * 6)), 5,
+                         (Mux((self.i_sx < (BAR_WIDTH * 7)), 6, 7)))))))))))))),
 
             self.o_r.eq(Mux(((bar_select == 4) | (bar_select == 5) | 
-                            (bar_select == 6) | (bar_select == 7)), 
-                            Repl(1, VIDEO_WIDTH), 0)),
+                             (bar_select == 6) | (bar_select == 7)), 
+                             Repl(1, VIDEO_WIDTH), 0)),
 
             self.o_g.eq(Mux(((bar_select == 2) | (bar_select == 3) | 
-                            (bar_select == 6) | (bar_select == 7)), 
-                            Repl(1, VIDEO_WIDTH), 0)),
+                             (bar_select == 6) | (bar_select == 7)), 
+                             Repl(1, VIDEO_WIDTH), 0)),
 
             self.o_b.eq(Mux(((bar_select == 1) | (bar_select == 3) | 
                             (bar_select == 5) | (bar_select == 7)), 
-                            Repl(1, VIDEO_WIDTH), 0)),
+                             Repl(1, VIDEO_WIDTH), 0)),
         ]
 
         return m 
@@ -74,7 +74,7 @@ class TPG(Elaboratable):
     if __name__ == "__main__":
         dut = Module()
         dut.submodules.tpg = tpg = tpg()
-        
+
         sim = Simulator(dut)
         sim.add_clock(25e-6)
 

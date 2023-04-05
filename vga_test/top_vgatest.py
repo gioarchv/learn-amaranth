@@ -18,13 +18,13 @@ class TopVgaTest(Elaboratable):
         m.submodules.vga = vga = VGA()    
 
         # vga signal definitions
-        vga_hsync = Signal()
-        vga_vsync = Signal()
-        vga_de = Signal()
-        vga_frame = Signal()
-        vga_line = Signal()
-        vga_sx = Signal(signed(16))
-        vga_sy = Signal(signed(16))
+        vga_hsync   = Signal()
+        vga_vsync   = Signal()
+        vga_de      = Signal()
+        vga_frame   = Signal()
+        vga_line    = Signal()
+        vga_sx      = Signal(signed(16))
+        vga_sy      = Signal(signed(16))
 
         m.d.comb += [
             vga_hsync.eq(vga.o_hsync),
