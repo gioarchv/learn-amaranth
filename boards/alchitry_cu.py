@@ -24,6 +24,19 @@ class AlchitryCuPlatform(LatticeICE40Platform):
         # On-Board LED Array
         Resource("led", 0, Pins("J11 K11 K12 K14 L12 L14 M12 N14", dir="o"),
                 Attrs(IO_STANDARD="SB_LVCMOS")),
+
+        Resource("uart", 0,
+                Subsignal("tx", Pins("M9",  dir="o")),
+                Subsignal("rx", Pins("P14", dir="i")),
+                Attrs(IO_STANDARD="SB_LVCMOS")
+        ),
+
+        Resource("i2s", 0,
+                Subsignal("lrck", Pins("N1",  dir="o")),        # Bank A Pin 48
+                Subsignal("bck",  Pins("P1",  dir="o")),        # Bank A Pin 49
+                Subsignal("din",  Pins("L1",  dir="o")),        # Bank A Pin 3
+                Attrs(IO_STANDARD="SB_LVCMOS")
+        ),
     ]
 
     

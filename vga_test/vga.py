@@ -144,7 +144,7 @@ class VGA(Elaboratable):
 
 if __name__ == "__main__":
     dut = Module()
-    dut.submodules.vga = vga = vga()
+    dut.submodules.vga = vga = VGA()
 
     sim = Simulator(dut)
     sim.add_clock(25e-6)
